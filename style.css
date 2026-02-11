@@ -1,0 +1,158 @@
+/* --- THEME SETTING (VALENTINE PINK/RED) --- */
+body {
+    margin: 0; padding: 0;
+    background: radial-gradient(circle at center, #ffdeeb 0%, #ff8fb3 40%, #c70039 100%);
+    color: #ffffff;
+    font-family: 'Prompt', sans-serif;
+    overflow-x: hidden;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* 🔥 CSS สำหรับหัวข้อใหญ่ด้านบน */
+.main-header {
+    font-family: 'Dancing Script', cursive; /* ฟอนต์สไตล์วาเลนไทน์ */
+    font-size: 4em; /* ขนาดตัวอักษรใหญ่ */
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 100px; /* เว้นระยะห่างจากกล่องของขวัญ */
+    z-index: 20; /* ให้อยู่บนสุด */
+    line-height: 1.2;
+    /* ใส่เงาให้ตัวหนังสือเด้งสวยๆ */
+    text-shadow: 2px 2px 0px #c70039, 0 0 20px rgba(255, 255, 255, 0.5);
+    animation: floatText 3s ease-in-out infinite;
+    padding: 0 15px;
+}
+
+/* อนิเมชั่นให้ตัวหนังสือลอยเบาๆ */
+@keyframes floatText {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* ปรับขนาดตัวหนังสือสำหรับมือถือ */
+@media (max-width: 600px) {
+    .main-header {
+        font-size: 3em; /* ลดขนาดลงนิดหน่อยในมือถือ */
+        margin-top: 40px;
+    }
+}
+
+/* 🔥 แก้ไขหัวใจพื้นหลัง */
+.bg-heart-svg {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vmin; height: auto;
+    z-index: -5;
+    opacity: 0.4; 
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+    animation: pulseGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+    100% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.6; }
+}
+
+/* --- GIFT BOX --- */
+.gift-container {
+    cursor: pointer; position: relative;
+    animation: shake 2s infinite;
+    transition: transform 0.3s; z-index: 10;
+    filter: drop-shadow(0 10px 20px rgba(150, 0, 50, 0.5));
+    margin-bottom: 20px;
+}
+.gift-container:hover { transform: scale(1.05); }
+
+.gift-box {
+    width: 150px; height: 150px;
+    background-color: #ff004d; position: relative;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.2); 
+    border-radius: 10px;
+}
+.gift-lid {
+    width: 170px; height: 40px; background-color: #d10040;
+    position: absolute; top: -30px; left: -10px; border-radius: 5px; z-index: 2;
+}
+.ribbon-vertical {
+    width: 30px; height: 100%; background-color: #fff;
+    position: absolute; left: 50%; transform: translateX(-50%);
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+.ribbon-horizontal {
+    width: 100%; height: 30px; background-color: #fff;
+    position: absolute; top: 50%; transform: translateY(-50%);
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+.bow {
+    width: 80px; height: 40px; border: 8px solid #fff; border-bottom: none;
+    border-radius: 40px 40px 0 0; position: absolute;
+    top: -65px; left: 50%; transform: translateX(-50%); z-index: 1;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+.click-text {
+    margin-top: 60px; color: #fff; font-weight: bold;
+    text-shadow: 1px 1px 4px rgba(199, 0, 57, 0.8); 
+    animation: blink 1.5s infinite;
+    white-space: nowrap; /* ป้องกันข้อความตกบรรทัด */
+}
+
+/* --- CONTENT AREA --- */
+.content-area {
+    display: none; width: 90%; max-width: 500px;
+    text-align: center; animation: fadeIn 1.5s;
+    z-index: 5;
+}
+
+.media-container {
+    position: relative;
+    border: 4px solid #fff; border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(163, 0, 57, 0.6);
+    background: #000; 
+    margin-bottom: 20px;
+    width: 100%; height: 500px; 
+    display: flex; align-items: center; justify-content: center;
+}
+
+/* Video Styles */
+video { width: 100%; height: 100%; display: none; object-fit: contain; }
+/* Image Styles */
+img.memory-img { width: 100%; height: 100%; display: none; object-fit: contain; }
+
+.message-box {
+    background: rgba(80, 0, 30, 0.85);
+    padding: 20px;
+    border-radius: 10px; margin-bottom: 20px;
+    border-left: 5px solid #ff99cc; 
+    min-height: 80px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    backdrop-filter: blur(5px);
+}
+.message-text { font-size: 1.1em; line-height: 1.5; color: #fff0f5; }
+
+.btn-next {
+    background-color: #fff; color: #c70039; border: none; 
+    padding: 12px 30px; font-size: 1.2em; border-radius: 50px;
+    cursor: pointer; font-family: 'Kanit', sans-serif; font-weight: bold;
+    transition: 0.3s; box-shadow: 0 5px 20px rgba(199, 0, 57, 0.4);
+    margin-bottom: 30px; /* เพิ่มระยะห่างด้านล่างเผื่อดูในมือถือ */
+}
+.btn-next:hover { background-color: #ff004d; color: #fff; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255, 0, 77, 0.6); }
+
+@keyframes shake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(3deg); } 75% { transform: rotate(-3deg); } }
+@keyframes blink { 50% { opacity: 0.5; } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.floating-heart {
+    position: fixed; color: #ff004d; font-size: 20px;
+    animation: floatUp 4s linear forwards; z-index: -2;
+    text-shadow: 0 0 5px rgba(255, 100, 150, 0.5); 
+}
+@keyframes floatUp { to { transform: translateY(-100vh) scale(1.5); opacity: 0; } }
