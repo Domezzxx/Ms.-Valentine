@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise for You ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Kanit:wght@300;600&family=Prompt:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- THEME SETTING (VALENTINE PINK/RED) --- */
+        body {
+            margin: 0; padding: 0;
+            background: radial-gradient(circle at center, #ffdeeb 0%, #ff8fb3 40%, #c70039 100%);
+            color: #ffffff;
+            font-family: 'Prompt', sans-serif;
+            overflow-x: hidden;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* 🔥 CSS สำหรับหัวข้อใหญ่ด้านบน */
+        .main-header {
+            font-family: 'Dancing Script', cursive; /* ฟอนต์สไตล์วาเลนไทน์ */
+            font-size: 4em; /* ขนาดตัวอักษรใหญ่ */
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 100px; /* เว้นระยะห่างจากกล่องของขวัญ */
+            z-index: 20; /* ให้อยู่บนสุด */
+            line-height: 1.2;
+            /* ใส่เงาให้ตัวหนังสือเด้งสวยๆ */
+            text-shadow: 2px 2px 0px #c70039, 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: floatText 3s ease-in-out infinite;
+            padding: 0 15px;
+        }
+
+        /* อนิเมชั่นให้ตัวหนังสือลอยเบาๆ */
+        @keyframes floatText {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* ปรับขนาดตัวหนังสือสำหรับมือถือ */
+        @media (max-width: 600px) {
+            .main-header {
+                font-size: 3em; /* ลดขนาดลงนิดหน่อยในมือถือ */
+                margin-top: 40px;
+            }
+        }
+
+        /* 🔥 แก้ไขหัวใจพื้นหลัง */
+        .bg-heart-svg {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90vmin; height: auto;
+            z-index: -5;
+            opacity: 0.4; 
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+            animation: pulseGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+            100% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.6; }
+        }
+
+        /* --- GIFT BOX --- */
+        .gift-container {
+            cursor: pointer; position: relative;
+            animation: shake 2s infinite;
+            transition: transform 0.3s; z-index: 10;
+            filter: drop-shadow(0 10px 20px rgba(150, 0, 50, 0.5));
+            margin-bottom: 20px;
+        }
+        .gift-container:hover { transform: scale(1.05); }
+
+        .gift-box {
+            width: 150px; height: 150px;
+            background-color: #ff004d; position: relative;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.2); 
+            border-radius: 10px;
+        }
+        .gift-lid {
+            width: 170px; height: 40px; background-color: #d10040;
+            position: absolute; top: -30px; left: -10px; border-radius: 5px; z-index: 2;
+        }
+        .ribbon-vertical {
+            width: 30px; height: 100%; background-color: #fff;
+            position: absolute; left: 50%; transform: translateX(-50%);
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        .ribbon-horizontal {
+            width: 100%; height: 30px; background-color: #fff;
+            position: absolute; top: 50%; transform: translateY(-50%);
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        .bow {
+            width: 80px; height: 40px; border: 8px solid #fff; border-bottom: none;
+            border-radius: 40px 40px 0 0; position: absolute;
+            top: -65px; left: 50%; transform: translateX(-50%); z-index: 1;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+        .click-text {
+            margin-top: 60px; color: #fff; font-weight: bold;
+            text-shadow: 1px 1px 4px rgba(199, 0, 57, 0.8); 
+            animation: blink 1.5s infinite;
+            white-space: nowrap; /* ป้องกันข้อความตกบรรทัด */
+        }
+
+        /* --- CONTENT AREA --- */
+        .content-area {
+            display: none; width: 90%; max-width: 500px;
+            text-align: center; animation: fadeIn 1.5s;
+            z-index: 5;
+        }
+
+        .media-container {
+            position: relative;
+            border: 4px solid #fff; border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(163, 0, 57, 0.6);
+            background: #000; 
+            margin-bottom: 20px;
+            width: 100%; height: 500px; 
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* Video Styles */
+        video { width: 100%; height: 100%; display: none; object-fit: contain; }
+        /* Image Styles */
+        img.memory-img { width: 100%; height: 100%; display: none; object-fit: contain; }
+
+        .message-box {
+            background: rgba(80, 0, 30, 0.85);
+            padding: 20px;
+            border-radius: 10px; margin-bottom: 20px;
+            border-left: 5px solid #ff99cc; 
+            min-height: 80px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
+        }
+        .message-text { font-size: 1.1em; line-height: 1.5; color: #fff0f5; }
+
+        .btn-next {
+            background-color: #fff; color: #c70039; border: none; 
+            padding: 12px 30px; font-size: 1.2em; border-radius: 50px;
+            cursor: pointer; font-family: 'Kanit', sans-serif; font-weight: bold;
+            transition: 0.3s; box-shadow: 0 5px 20px rgba(199, 0, 57, 0.4);
+            margin-bottom: 30px; /* เพิ่มระยะห่างด้านล่างเผื่อดูในมือถือ */
+        }
+        .btn-next:hover { background-color: #ff004d; color: #fff; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255, 0, 77, 0.6); }
+
+        @keyframes shake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(3deg); } 75% { transform: rotate(-3deg); } }
+        @keyframes blink { 50% { opacity: 0.5; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .floating-heart {
+            position: fixed; color: #ff004d; font-size: 20px;
+            animation: floatUp 4s linear forwards; z-index: -2;
+            text-shadow: 0 0 5px rgba(255, 100, 150, 0.5); 
+        }
+        @keyframes floatUp { to { transform: translateY(-100vh) scale(1.5); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <h1 class="main-header">Happy Valentine To Ging</h1>
+
+    <svg class="bg-heart-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.8" />
+                <stop offset="100%" style="stop-color:#ffcce0;stop-opacity:0.5" />
+            </linearGradient>
+        </defs>
+        <path fill="url(#heartGradient)" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    </svg>
+
+    <audio id="bgMusic" loop>
+        <source src="Polycat.mp4" type="audio/mp4"> 
+    </audio>
+
+    <div class="gift-container" id="giftBox" onclick="openGift()">
+        <div class="gift-lid"><div class="ribbon-vertical"></div></div>
+        <div class="gift-box"><div class="ribbon-vertical"></div><div class="ribbon-horizontal"></div></div>
+        <div class="bow"></div>
+        <div class="click-text">แตะเพื่อเปิดของขวัญ 🎁</div>
+    </div>
+
+    <div class="content-area" id="mainContent">
+        <div class="media-container">
+            <video id="videoPlayer" controls playsinline webkit-playsinline></video>
+            <img id="imageViewer" class="memory-img" src="" alt="Memory">
+        </div>
+
+        <div class="message-box">
+            <p id="messageText" class="message-text">...</p>
+        </div>
+
+        <button class="btn-next" onclick="nextMemory()">ความทรงจำถัดไป ➡️</button>
+    </div>
+
+    <script>
+        // ข้อมูลความทรงจำ (ชุดเดิมของคุณ)
+        const memories = [
+            {
+                type: "video",
+                file: "GingSmile1.mp4", 
+                text: "คลิปแรกที่เธอส่งให้เค้าดู เธอน่ารักมากๆ อยากลูบหัวง่ะ"
+            },
+            {
+                type: "image", 
+                file: "ขับรถไปหากิ่งครั้งแรก.PNG", 
+                text: "วันนั้นเธอฝากเค้าซื้ออมยิ้ม ได้อยู่กับเธอแป้บเดียวแต่เค้ามีความสุขมากเลย อยากอยู่กับเธอนานๆ✨"
+            },
+            {
+                type: "video",
+                file: "GingSmile2.mp4", 
+                text: "เค้าชอบเวลาเธอยิ้มแบบนี้มากกกก อยากให้เธอยิ้มน่ารักแบบนี้ตลอดไปเลย 😊"
+            },
+            {
+                type: "image", 
+                file: "รูปแรกที่กิ่งส่งให้.PNG", 
+                text: "วันนั้นเค้ารู้ว่าเธอน่าจะเมาอยู่ แต่ก็ไม่คิดว่าจะถ่ายรูปมาให้ดู น่ารักมากเลยนะ เค้าเอ็นดูเธอมากๆ เลย 🥰"
+            },
+             {
+                type: "image", 
+                file: "กิ่งกลับห้องแล้วทักหา.PNG", 
+                text: "ตอนนั้นเค้านอนอยู่ แล้วเธอทักมาว่ากลับห้องแล้วนะ หลังจากไปดื่มมามันน่าเอ็นดูมากๆ เลย เค้าไม่คิดว่าเธอจะทักหาด้วย แถมมาบอกคิดถึงกันอีก อยากหอมหัวเธอมากกกก"
+            },
+            {
+                type: "video",
+                file: "CardForGing.mp4", 
+                text: "การ์ดนี้เค้าทำวันที่เกรดออกแล้วเธอดูเครียดๆ เเล้วเค้าอยากทำให้เธอยิ้มได้เลยลองพับการ์ดดู เป็นครั้งแรกเลยที่เค้าทำให้คนคนนึง รู้สึกว่าดันชอบทำ จะทำให้เธอบ่อยๆ เลยนะ"
+            },
+            {
+                type: "image", 
+                file: "กิ่งถูกใจโน๊ต.PNG", 
+                text: "แค่เธอกดถูกใจโน๊ต วันนั้นเค้าตัวลอยทั้งวันเลย ยิ้มไม่หุบ"
+            },
+            {
+                type: "image", 
+                file: "ข้อความที่ทำให้ยิ้มข้ามวันข้ามคืน.PNG", 
+                text: "เค้าชอบเวลาเธอบอกเค้าว่าน่ารักมากกกก ปกติเค้าไม่ค่อยได้มีใครมาชมแบบนี้เท่าไหร่ อยากให้เธออยู่ชมเค้าแบบนี้ไปเรื่อยๆ เลย 💕"
+            },
+            {
+                type: "image", 
+                file: "กิ่งชม.PNG", 
+                text: "วันนั้นเค้าไปเที่ยวเขาใหญ่กับเพื่อนๆ เค้าส่งรูปไป แล้วเธอส่งข้อความมาชมเค้า เค้าดีใจมากเลย รู้สึกว่าเธอเป็นคนที่อบอุ่นมากๆ ❤️"
+            },
+            {
+                type: "image", 
+                file: "กิ่งชม1.PNG", 
+                text: "เธอชมเค้าเก่งมาก เค้าเขินจนแทบอยากจะกรี๊ดกลางป่ากลางเขา ไอ่บ้าเอ๊ยยยยย เขินเธอทุกครั้งเลยเอาจริง"
+            },
+             {
+                type: "image", 
+                file: "กิ่งถูกใจสตอรี่.PNG", 
+                text: "เค้าลงรูปที่เธอชม แล้วเธอมากดใจคนแรกเลยด้วย เธอดูเป็นคนใส่ใจรายละเอียดเล็กๆ น้อยๆ เห็นแล้วใจฟูมากก อยากพาเธอมาเที่ยวด้วยกัน💖"
+            },
+            {
+                type: "image", 
+                file: "คอลกันวันแรก.PNG", 
+                text: "อันนี้เป็นวันที่เราโทรคุยกันครั้งแรก แอบเกร็งปนเขินๆ แต่ก็สนุกมากเลยนะ อยากรู้จักเธอมากขึ้นในทุกๆ วัน😊"
+            },
+            {
+                type: "image", 
+                file: "วันที่รู้สึกใช่กับเธอ.PNG", 
+                text: "วันนั้นเราคุยกันเรื่องที่บ้านกัน แล้วพอเธอเล่าให้เค้าฟัง เค้ารู้สึกอยากดูแลเธอมาก อยากคอยถะนุถะนอมเธอให้ดี ไม่อยากให่เธอต้องทำอะไรอยู่คนเดียว เป็นความรู้สึกที่ไม่ได้มีง่ายๆ แต่พอมีก็อยากทำให้ดีที่สุดเลย ❤️"
+            },
+            {
+                type: "image", 
+                file: "กิ่งรีโพสต์.PNG", 
+                text: "เค้าแอบไปส่องตตดูว่าเธอรีโพสต์อะไรบ้าง เเล้วเค้าเห็นคลิปนี้ที่เธอรีโพสต์ เค้าดีใจมากๆ เดี๋ยวเค้าจะเป็นคนพาเธอไปทะเลเองนะคั้บ คนเก่งของเค้า "
+            },
+            {
+                type: "image", 
+                file: "กิ่งถ่ายวิวทะเล.PNG", 
+                text: "เธอไปเที่ยวพัทยากับเพื่อน แล้วถ่ายรูปทะเลมาให้เค้าดู เค้าอุ่นใจมากกก ได้เห็นเธอไปเที่ยวเค้าก็มีความสุขแล้ว อยากให้เธอเอ็นจอยกับชีวิตตัวเองให้มากๆ 🌊"
+            },
+             {
+                type: "image", 
+                file: "ดอกไม้ที่กิ่งบอกว่าน่ารัก.PNG", 
+                text: "เห็นเธอไปเจอสตอรี่เพื่อนแล้วบอกว่าน่ารักดี วันต่อมาเค้าเลยถ่ายมาให้เธอดู เธอดูชอบดอกไม้มากๆ ถ้าเธอได้ดอกไม้ซักช่อก็คงดีนะ 🌸"
+            },
+        ];
+
+        // ----------------------------------------
+
+        let currentIndex = 0;
+        const giftBox = document.getElementById('giftBox');
+        const contentArea = document.getElementById('mainContent');
+        const videoPlayer = document.getElementById('videoPlayer');
+        const imageViewer = document.getElementById('imageViewer');
+        const messageText = document.getElementById('messageText');
+        const bgMusic = document.getElementById('bgMusic');
+
+        function openGift() {
+            giftBox.style.display = 'none';
+            contentArea.style.display = 'block';
+            
+            bgMusic.volume = 0.5;
+            bgMusic.play().catch(e => console.log("Music play failed:", e));
+
+            loadMemory(currentIndex);
+            startHearts();
+        }
+
+        function nextMemory() {
+            currentIndex++;
+            if (currentIndex >= memories.length) {
+                currentIndex = 0;
+            }
+            loadMemory(currentIndex);
+        }
+
+        function loadMemory(index) {
+            const data = memories[index];
+            messageText.innerText = data.text;
+
+            if (data.type === 'video') {
+                imageViewer.style.display = 'none';
+                videoPlayer.style.display = 'block';
+                videoPlayer.src = data.file;
+                videoPlayer.load();
+                videoPlayer.play().catch(e => console.log("Autoplay prevented"));
+            } else if (data.type === 'image') {
+                videoPlayer.pause();
+                videoPlayer.style.display = 'none';
+                imageViewer.style.display = 'block';
+                imageViewer.src = data.file;
+            }
+        }
+
+        function startHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = Math.random() > 0.5 ? '❤️' : '🤍';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = '100vh';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
