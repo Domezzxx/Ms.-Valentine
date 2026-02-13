@@ -166,7 +166,7 @@
             
             // รีเซ็ตปุ่มเสียงทุกครั้งที่เปลี่ยนหน้า
             videoAudioEnabled = false;
-            toggleBtn.textContent = 'เปิดเสียงคลิป 🔊';
+           
 
             if (data.type === 'video') {
                 imageViewer.style.display = 'none';
@@ -177,7 +177,7 @@
                 videoPlayer.muted = true;
                 
                 // แสดงปุ่มเปิดเสียงคลิป
-                toggleBtn.style.display = 'inline-block';
+               
                 
                 videoPlayer.load();
                 videoPlayer.play().catch(e => console.log("Autoplay prevented"));
@@ -240,3 +240,4 @@
     </script>
 </body>
 </html>
+
