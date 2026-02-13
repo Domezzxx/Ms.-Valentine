@@ -36,7 +36,6 @@
         <div class="media-container">
             <video id="videoPlayer" controls playsinline webkit-playsinline muted></video>
             <img id="imageViewer" class="memory-img" src="" alt="Memory">
-            <button id="toggleVideoAudio" class="btn-audio" style="display:none;">เปิดเสียงคลิป 🔊</button>
         </div>
 
         <div class="message-box">
@@ -138,14 +137,13 @@
         const imageViewer = document.getElementById('imageViewer');
         const messageText = document.getElementById('messageText');
         const bgMusic = document.getElementById('bgMusic');
-        const toggleBtn = document.getElementById('toggleVideoAudio');
 
         function openGift() {
             giftBox.style.display = 'none';
             contentArea.style.display = 'block';
             
             // ตั้งค่าเสียงเพลงพื้นหลังเริ่มต้น
-            bgMusic.volume = 0.4; // ปรับความดังเพลงพื้นหลัง (0.0 - 1.0)
+            bgMusic.volume = 0.4; 
             bgMusic.play().catch(e => console.log("Music play failed:", e));
 
             loadMemory(currentIndex);
@@ -164,19 +162,13 @@
             const data = memories[index];
             messageText.innerText = data.text;
             
-          
-        
-           
-
             if (data.type === 'video') {
                 imageViewer.style.display = 'none';
                 videoPlayer.style.display = 'block';
                 videoPlayer.src = data.file;
                 
-                // วิดีโอเริ่มแบบปิดเสียง (เพลงพื้นหลังยังเล่นอยู่)
+                // วิดีโอเริ่มแบบปิดเสียงเสมอ (เพื่อให้เพลงพื้นหลังเด่น)
                 videoPlayer.muted = true;
-                
-              
                 
                 videoPlayer.load();
                 videoPlayer.play().catch(e => console.log("Autoplay prevented"));
@@ -185,22 +177,8 @@
                 videoPlayer.style.display = 'none';
                 imageViewer.style.display = 'block';
                 imageViewer.src = data.file;
-                
-                // ซ่อนปุ่มเสียงเมื่อเป็นรูปภาพ
-                toggleBtn.style.display = 'none';
-                
-                // ถ้าเพลงพื้นหลังถูกเบาเสียงไว้ ให้กลับมาดังเท่าเดิม
-                bgMusic.volume = 0.4;
             }
         }
-
-        // --- ส่วนที่แก้ไข: จัดการเสียงคลิปและเพลงพื้นหลัง ---
-        let videoAudioEnabled = false;
-
-        
-            });
-        }
-        // ------------------------------------------------
 
         function startHearts() {
             setInterval(() => {
@@ -218,6 +196,3 @@
     </script>
 </body>
 </html>
-
-
-
