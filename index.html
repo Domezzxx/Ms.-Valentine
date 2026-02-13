@@ -176,8 +176,7 @@
                 // วิดีโอเริ่มแบบปิดเสียง (เพลงพื้นหลังยังเล่นอยู่)
                 videoPlayer.muted = true;
                 
-                // แสดงปุ่มเปิดเสียงคลิป
-               
+              
                 
                 videoPlayer.load();
                 videoPlayer.play().catch(e => console.log("Autoplay prevented"));
@@ -198,28 +197,7 @@
         // --- ส่วนที่แก้ไข: จัดการเสียงคลิปและเพลงพื้นหลัง ---
         let videoAudioEnabled = false;
 
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', function() {
-                if (!videoAudioEnabled) {
-                    // เปิดเสียงคลิป (โดยไม่ปิดเพลงพื้นหลัง)
-                    videoPlayer.muted = false;
-                    
-                    // (ลูกเล่นเสริม) เบาเสียงเพลงพื้นหลังลงนิดหน่อยเพื่อให้ได้ยินเสียงคลิปชัดขึ้น
-                    // ถ้าไม่อยากให้เบาเสียง ลบบรรทัดข้างล่างนี้ออกได้เลยครับ
-                    bgMusic.volume = 0.1; 
-
-                    videoAudioEnabled = true;
-                    toggleBtn.textContent = 'ปิดเสียงคลิป 🔇';
-                } else {
-                    // ปิดเสียงคลิป
-                    videoPlayer.muted = true;
-                    
-                    // คืนค่าความดังเพลงพื้นหลัง
-                    bgMusic.volume = 0.4;
-
-                    videoAudioEnabled = false;
-                    toggleBtn.textContent = 'เปิดเสียงคลิป 🔊';
-                }
+        
             });
         }
         // ------------------------------------------------
@@ -240,4 +218,5 @@
     </script>
 </body>
 </html>
+
 
