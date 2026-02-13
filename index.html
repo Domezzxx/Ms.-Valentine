@@ -21,9 +21,7 @@
         <path fill="url(#heartGradient)" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
     </svg>
 
-    <audio id="bgMusic" loop>
-        <source src="Polycat.mp4" type="audio/mp4"> 
-    </audio>
+   
 
     <div class="gift-container" id="giftBox" onclick="openGift()">
         <div class="gift-lid"><div class="ribbon-vertical"></div></div>
@@ -34,8 +32,9 @@
 
     <div class="content-area" id="mainContent">
         <div class="media-container">
-            <video id="videoPlayer" controls playsinline webkit-playsinline></video>
+            <video id="videoPlayer" controls playsinline webkit-playsinline muted></video>
             <img id="imageViewer" class="memory-img" src="" alt="Memory">
+            <button id="toggleVideoAudio" class="btn-audio" style="display:none;">ฟังเสียงคลิป 🔊</button>
         </div>
 
         <div class="message-box">
@@ -130,7 +129,7 @@
             },
         ];
 
-        // ----------------------------------------
+      
 
         let currentIndex = 0;
         const giftBox = document.getElementById('giftBox');
@@ -167,6 +166,10 @@
                 imageViewer.style.display = 'none';
                 videoPlayer.style.display = 'block';
                 videoPlayer.src = data.file;
+                // keep video muted by default so background music can continue on iPad
+                videoPlayer.muted = true;
+                // show toggle so user can choose to hear clip audio (this will pause bg music)
+                document.getElementById('toggleVideoAudio').style.display = 'inline-block';
                 videoPlayer.load();
                 videoPlayer.play().catch(e => console.log("Autoplay prevented"));
             } else if (data.type === 'image') {
@@ -174,8 +177,30 @@
                 videoPlayer.style.display = 'none';
                 imageViewer.style.display = 'block';
                 imageViewer.src = data.file;
+                // hide toggle for images and ensure video stays muted
+                document.getElementById('toggleVideoAudio').style.display = 'none';
+                videoPlayer.muted = true;
             }
         }
+
+        // Toggle between background music and video audio
+        let videoAudioEnabled = false;
+        const toggleBtn = document.getElementById('toggleVideoAudio');
+        toggleBtn && toggleBtn.addEventListener('click', function() {
+            if (!videoAudioEnabled) {
+                // Pause background music and unmute video so clip audio plays
+                bgMusic.pause();
+                videoPlayer.muted = false;
+                videoAudioEnabled = true;
+                toggleBtn.textContent = 'ปิดเสียงคลิป และเล่นเพลงต่อ ▶️';
+            } else {
+                // Mute video and resume background music
+                videoPlayer.muted = true;
+                bgMusic.play().catch(e => console.log('Music play failed:', e));
+                videoAudioEnabled = false;
+                toggleBtn.textContent = 'ฟังเสียงคลิป 🔊';
+            }
+        });
 
         function startHearts() {
             setInterval(() => {
